@@ -1,0 +1,26 @@
+# Dependencies
+/node_modules
+
+# Environment variables
+# This file contains sensitive information like database credentials and secrets.
+# Never commit this file to a public repository.
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Optional build directory
+/dist
+/build
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Optional editor directories
+.idea
+.vscode

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Login Issue</title>
+</head>
+<body>
+    <h1>Debug Login Issue</h1>
+    <button onclick="clearStorage()">Clear localStorage</button>
+    <button onclick="testAPI()">Test API Connection</button>
+    <button onclick="testLogin()">Test Login</button>
+    
+    <div id="output"></div>
+
+    <script>
+        function clearStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            document.getElementById('output').innerHTML = '<p>✅ Storage cleared! Refresh the page.</p>';
+        }
+
+        async function testAPI() {
+            try {
+                const response = await fetch('http://localhost:3002/');
+                const text = await response.text();
+                document.getElementById('output').innerHTML = `<p>✅ API Response: ${text}</p>`;
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<p>❌ API Error: ${error.message}</p>`;
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const response = await fetch('http://localhost:3002/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'user@travelnest.com',
+                        password: 'user123'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('output').innerHTML = `<p>✅ Login Success: ${JSON.stringify(data)}</p>`;
+                } else {
+                    document.getElementById('output').innerHTML = `<p>❌ Login Failed: ${JSON.stringify(data)}</p>`;
+                }
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<p>❌ Login Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
